@@ -29,6 +29,7 @@ class Scraper {
             CHUCK_NORRIS: 'CHUCK_NORRIS',
             FREDDURE: 'FREDDURE',
             COLMI: 'COLMI',
+            COMESICHIAMA: 'COMESICHIAMA',
             DIFFERENZE: 'DIFFERENZE',
             AFORISMI: "AFORISMI",
             ANIMALI: "ANIMALI",
@@ -37,8 +38,10 @@ class Scraper {
             DAL_DOTTORE: "DAL_DOTTORE",
             DONNE: "DONNE",
             INDOVINELLI: "INDOVINELLI",
+            MASSIME: "MASSIME",
             POLITICA: "POLITICA",
             PROFESSIONI: "PROFESSIONI",
+            IPERCHE: "IPERCHE",
             RELIGIONE: "RELIGIONE",
             SCUOLA: "SCUOLA",
             TECNOLOGIA: "TECNOLOGIA",
@@ -73,14 +76,18 @@ class Scraper {
      * @returns {Joke[]}
      */
     async downloadAllJokes() {
-        const downloadPromises = this.PAGES.map(page => this.getJokesFromPage(page));
-        const jokesFromPages = await Promise.all(downloadPromises);
-        const jokes = jokesFromPages
-            .reduce((all, jokes) => {
-                all.push(...jokes);
-                return all;
-            });
-        return jokes;
+        let jokesout = [];
+        for (let i = 1; i < 100; i++) {
+            const downloadPromises = this.PAGES.map(page => this.getJokesFromPage(page, { pageNum: i }));
+            const jokesFromPages = await Promise.all(downloadPromises);
+            const jokes = jokesFromPages
+                .reduce((all, jokes) => {
+                    all.push(...jokes);
+                    return all;
+                });
+            jokesout.push(...jokes)
+        }
+        return jokesout;
     }
 
 

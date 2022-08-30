@@ -6,7 +6,7 @@ const Scraper = require('./Scraper.js');
 class FuoriDiTesta extends Scraper {
 
     get BASE_URL() {
-        return "http://www.fuoriditesta.it/barzellette/";
+        return "https://www.fuoriditesta.it/barzellette/";
     }
 
     get PAGES() {
@@ -59,9 +59,9 @@ class FuoriDiTesta extends Scraper {
     }
 
     async getJokesFromPage(page, options) {
-        const html = await this._downloadPage(page);
+        const html = await this._downloadPage(page, options);
         const $ = await cheerio.load(html);
-        const divs = $("div.content > div:nth-child(3) > .end").prev("div");
+        const divs = $("div.content > div:nth-child(3) > div.end").prev("div");
         if (!divs) throw new Error("No joke found");
         const jokes = Array.from(divs)
             .map(div => div.children

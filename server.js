@@ -16,7 +16,7 @@ fastify.register(require('./routes/v1/jokes.js'), { prefix: '/v1/jokes' });
 fastify.register(require('./routes/v1/mngmnt.js'), { prefix: '/v1/mngmnt' });
 
 
-fastify.listen(3000, '0.0.0.0', function (err, address) {
+fastify.listen(3050, '0.0.0.0', function (err, address) {
     if (err) {
         fastify.log.error(err);
         process.exit(1);

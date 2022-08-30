@@ -10,7 +10,7 @@ const Scraper = require('./Scraper.js');
 class LaPecoraSclera extends Scraper {
 
     get BASE_URL() {
-        return "http://www.lapecorasclera.it/";
+        return "https://www.lapecorasclera.it/";
     }
 
     get PAGES() {
@@ -18,19 +18,28 @@ class LaPecoraSclera extends Scraper {
             page: 'chuck-norris-facts.php?PA={{PAGE}}',
             categories: [Scraper.CATEGORIES.CHUCK_NORRIS]
         }, {
-            page: 'chuck-norris-facts.php?PA={{PAGE}}',
+            page: 'battute-divertenti.php?PA={{PAGE}}',
             categories: [Scraper.CATEGORIES.FREDDURE]
         }, {
-            page: 'battute-divertenti.php?PA={{PAGE}}&genere=1&label=colmi',
+            page: 'battute-divertenti.php?PA={{PAGE}}&genere=1',
             categories: [Scraper.CATEGORIES.COLMI]
         }, {
-            page: 'battute-divertenti.php?PA={{PAGE}}&genere=3&label=differenze',
+            page: 'battute-divertenti.php?PA={{PAGE}}&genere=3',
             categories: [Scraper.CATEGORIES.DIFFERENZE]
+        }, {
+            page: 'battute-divertenti.php?PA={{PAGE}}&genere=2',
+            categories: [Scraper.CATEGORIES.COMESICHIAMA]
+        }, {
+            page: 'battute-divertenti.php?PA={{PAGE}}&genere=4',
+            categories: [Scraper.CATEGORIES.IPERCHE]
+        }, {
+            page: 'battute-divertenti.php?PA={{PAGE}}&genere=5',
+            categories: [Scraper.CATEGORIES.MASSIME]
         }];
     }
 
     async getJokesFromPage(page, options) {
-        const html = await this._downloadPage(page);
+        const html = await this._downloadPage(page, options);
         const $ = cheerio.load(html);
         const divs = $('.panel-body > div')
         if (!divs) throw new Error("No joke found");
@@ -43,6 +52,7 @@ class LaPecoraSclera extends Scraper {
             }));
         return jokes;
     }
+
 }
 
 module.exports = LaPecoraSclera;

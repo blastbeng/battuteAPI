@@ -5,8 +5,11 @@
         "CATEGORIES": {
             "CHUCK_NORRIS": "chuck-norris-facts.php?PA={{PAGINATION}}",
             "FREDDURE": "chuck-norris-facts.php?PA={{PAGINATION}}",
-            "COLMI": "battute-divertenti.php?PA={{PAGINATION}}&genere=1&label=colmi",
-            "DIFFERENZE": "/battute-divertenti.php?PA={{PAGINATION}}&genere=3&label=differenze"
+            "COLMI": "battute-divertenti.php?PA={{PAGINATION}}&genere=1",
+            "DIFFERENZE": "/battute-divertenti.php?PA={{PAGINATION}}&genere=3",
+            "COMESICHIAMA": "/battute-divertenti.php?PA={{PAGINATION}}&genere=2",
+            "IPERCHE": "/battute-divertenti.php?PA={{PAGINATION}}&genere=4",
+            "MASSIME": "/battute-divertenti.php?PA={{PAGINATION}}&genere=5"
         },
         "SELECTOR": "$(\".panel-body > div\")"
     },

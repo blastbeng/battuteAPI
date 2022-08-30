@@ -52,6 +52,8 @@ class Database {
         // Add length
         joke.length = joke.text.length;
 
+        joke.text = joke.text.replaceAll('"', '').replaceAll("'", "")
+
         // Check if the joke already exists
         const exists = this._jokes.find({ hash: joke.hash });
         if (0 === exists.length)
