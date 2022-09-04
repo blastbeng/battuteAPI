@@ -16,11 +16,11 @@ class Core {
     /**
      * Scrape a service
      */
-    static async scrape(service) {
+    static async scrape(service, pageNum) {
         let numberTotal = 0;
         let numberDone = 0;
         if (false === (service in Core.SERVICE)) throw new Error("Please provide a valid service");
-        const jokes = await Core.SERVICE[service].downloadAllJokes();
+        const jokes = await Core.SERVICE[service].downloadAllJokes(pageNum);
         numberTotal = jokes.length;
         for (const joke of jokes) {
             try {

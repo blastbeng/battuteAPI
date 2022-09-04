@@ -75,18 +75,18 @@ class Scraper {
      * Download the jokes from all the pages of the scraper
      * @returns {Joke[]}
      */
-    async downloadAllJokes() {
+    async downloadAllJokes(pageNum) {
         let jokesout = [];
-        for (let i = 1; i < 100; i++) {
-            const downloadPromises = this.PAGES.map(page => this.getJokesFromPage(page, { pageNum: i }));
-            const jokesFromPages = await Promise.all(downloadPromises);
-            const jokes = jokesFromPages
-                .reduce((all, jokes) => {
-                    all.push(...jokes);
-                    return all;
-                });
-            jokesout.push(...jokes)
-        }
+        //for (let i = 1; i < 2; i++) {
+        const downloadPromises = this.PAGES.map(page => this.getJokesFromPage(page, { pageNum: pageNum }));
+        const jokesFromPages = await Promise.all(downloadPromises);
+        const jokes = jokesFromPages
+            .reduce((all, jokes) => {
+                all.push(...jokes);
+                return all;
+            });
+        jokesout.push(...jokes)
+        //}
         return jokesout;
     }
 

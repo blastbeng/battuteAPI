@@ -61,7 +61,8 @@ class FuoriDiTesta extends Scraper {
     async getJokesFromPage(page, options) {
         const html = await this._downloadPage(page, options);
         const $ = await cheerio.load(html);
-        const divs = $("div.content > div:nth-child(3) > div.end").prev("div");
+        const divs = $("div.content > div:nth-child(4) > div.end").prev("div");
+        //const divs = $("div.end").prev("div");
         if (!divs) throw new Error("No joke found");
         const jokes = Array.from(divs)
             .map(div => div.children

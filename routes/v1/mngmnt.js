@@ -13,16 +13,35 @@ async function routes(fastify, options) {
 
     fastify.get('/scrape', async (request, reply) => {
         const scraperType = request.query.scraper;
-        let number = 0;
-        if (scraperType) {
-            if (false === (scraperType in Core.SERVICE))
-                throw new Error("Please provide a valid service");
-            number = await Core.scrape(scraperType);
+        //const pageNum = request.query.pageNum !== undefined ? request.query.pageNum : 1;
+        let pageNum = 1;
+        if (request.query.pageNum !== undefined) {
+            pageNum = request.query.pageNum;
         } else {
-            for (const key of Object.keys(Core.SERVICE)) {
-                number = await Core.scrape(key);
-            }
+            let max = 100;
+            let min = 0;
+            let difference = max - min;
+            let rand = Math.random();
+            rand = Math.floor(rand * difference);
+            rand = rand + min;
+            pageNum = rand;
         }
+        let number = 0;
+        if (scraperType && (false !== (scraperType in Core.SERVICE))) {
+            number = await Core.scrape(scraperType, pageNum);
+        } else {
+            let scrapers = undefined;
+            for (const key of Object.keys(Core.SERVICE)) {
+                scrapers = (scrapers !== undefined ? scrapers + ", " : "") + key;
+            }
+            throw new Error("Please provide a valid services. (" + scrapers + ")");
+        }
+        //else {
+        //    for (const key of Object.keys(Core.SERVICE)) {
+        //        number = await Core.scrape(key, pageNum);
+        //    }
+        //}
+        number.scraper = scraperType;
         return { status: 'OK', ...number };
     });
 }
